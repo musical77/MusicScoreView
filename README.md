@@ -1,7 +1,5 @@
 # ScoreVisualizer
 
-[![Swift](https://github.com/musical77/ScoreVisualizer/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/musical77/ScoreVisualizer/actions/workflows/swift.yml)
-
 `ScoreVisualizer` supports visulize a `MusicScore`.
 
 Requirements
