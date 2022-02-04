@@ -9,15 +9,15 @@ import MusicScore
 
 public class ScoreImageRender {
     
-    /// init
-    public init(score: MusicScore, param: ScoreRenderParam) {
-        self.score = score
+    /// init render
+    public init(param: ScoreRenderParam) {
         self.param = param
-        self.duration = score.duration
     }
     
-    public func render() -> UIImage {
-        let size = CGSize(width: imageWidth, height: imageHeight)
+    /// render images
+    /// - parameter score score to be rendered
+    public func render(score: MusicScore) -> UIImage {
+        let size = CGSize(width: imageWidth(score: score), height: imageHeight)
         
         // Create a context of the starting image size and set it as the current one
         UIGraphicsBeginImageContext(size)
@@ -38,20 +38,21 @@ public class ScoreImageRender {
         return image!
     }
     
-    public let param: ScoreRenderParam!
-    
+    public var param: ScoreRenderParam!
     
     /// privates
     
     /// draw music part
     private func draw(context: CGContext, musicPart: MusicPart) {
+        let color = getColor(musicPart)
+        
         for note in musicPart.notes {
-            drawNote(context: context, note: note)
+            drawNote(context: context, note: note, color: color)
         }
     }
     
     /// draw a single note
-    private func drawNote(context: CGContext, note: NoteInScore) {
+    private func drawNote(context: CGContext, note: NoteInScore, color: CGColor) {
         let xPos = note.beginBeat * param.noteWidthPerBeat
         let yPos = imageHeight - CGFloat(note.pitch.rawValue) / HIGHEST_PITCH * imageHeight
         let width = (note.endBeat - note.beginBeat) * param.noteWidthPerBeat
@@ -59,22 +60,30 @@ public class ScoreImageRender {
         
         let rect = CGRect(x: xPos, y: yPos, width: width, height: height)
         
-        context.setStrokeColor(UIColor.green.cgColor)
-        context.setFillColor(UIColor.green.cgColor)
-        context.setAlpha(0.5)
+        context.setStrokeColor(color)
+        context.setFillColor(color)
+        context.setAlpha(0.8)
         context.addRect(rect)
         context.drawPath(using: .fill)
     }
-    
-    private var score: MusicScore!
-    private var duration: Double!
-    
-    private var imageWidth: CGFloat {
+        
+    private func imageWidth(score: MusicScore) -> CGFloat {
         return score.duration * param.noteWidthPerBeat
     }
     
     private var imageHeight: CGFloat {
         return HIGHEST_PITCH * param.noteHeight
+    }
+    
+    private func getColor(_ musicPart: MusicPart) -> CGColor {
+        switch musicPart.meta.instrument {
+        case .piano:
+            return UIColor.green.cgColor
+        case.violin:
+            return UIColor.red.cgColor
+        default:
+            return UIColor.blue.cgColor
+        }
     }
     
     private let HIGHEST_PITCH = 128.0

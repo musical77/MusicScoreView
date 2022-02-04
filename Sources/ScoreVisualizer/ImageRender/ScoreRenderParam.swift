@@ -7,14 +7,18 @@ import Foundation
 /// parameter for score rendering
 public struct ScoreRenderParam {
     
-    public init(noteHeight: Double = 2.0, noteWidthPerBeat: Double = 5.0) {
-        self.noteHeight = noteHeight
-        self.noteWidthPerBeat = noteWidthPerBeat
-    }
+    public static var `default` = {
+        return ScoreRenderParam()
+    }()
+    
+    public init() {}
     
     /// height for each note
-    public var noteHeight = 2.0
+    public var noteHeight = 6.0
     
     /// width for each beat
-    public var noteWidthPerBeat = 5.0
+    public var noteWidthPerBeat = 32.0
+    
+    /// whether to draw a line between measures or not
+    public var drawMeasureLine = true
 }
