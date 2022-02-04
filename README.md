@@ -1,5 +1,7 @@
 # ScoreVisualizer
 
+[![Swift](https://github.com/musical77/ScoreVisualizer/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/musical77/ScoreVisualizer/actions/workflows/swift.yml)
+
 A music score library with `MusicPart`, `Measure`, `Note`, `Pitch` and `Tempo` representations in swift structs.
 
 Support read music score from MIDI file. 
