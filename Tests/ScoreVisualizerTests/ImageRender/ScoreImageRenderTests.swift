@@ -1,8 +1,9 @@
-
+#if os(iOS)
 
 import XCTest
 import ScoreVisualizer
 import MusicScore
+import AudioToolbox
 
 class ScoreImageRenderTests: XCTestCase {
 
@@ -37,3 +38,5 @@ class ScoreImageRenderTests: XCTestCase {
     }
 
 }
+
+#endif

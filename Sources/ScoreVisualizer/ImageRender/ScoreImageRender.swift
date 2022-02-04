@@ -1,6 +1,7 @@
 //  ScoreImageRender.swift
 //  Created by lively77 on 2022/2/2.
 
+#if os(iOS)
 
 import Foundation
 import UIKit
@@ -109,6 +110,8 @@ public class ScoreImageRender {
     private let HIGHEST_PITCH = 128.0
 }
 
+
+#endif
 
 //// Draw a red line
 //context.setLineWidth(2.0)
