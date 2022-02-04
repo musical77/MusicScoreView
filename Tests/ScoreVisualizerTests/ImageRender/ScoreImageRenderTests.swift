@@ -27,13 +27,13 @@ class ScoreImageRenderTests: XCTestCase {
     }
     
     func testScoreRender2() {
-        var testScore = ScoreSamples.spring1st
+        let testScore = ScoreSamples.spring1st
         let render = ScoreImageRender(param: .default)
         let image = render.render(score: testScore)
         saveImage(image: image, filenamed: "spring")
         
-        testScore.cut(beginBeat: 0, endBeat: 16)
-        saveImage(image: render.render(score: testScore), filenamed: "spring_first_4")
+        let subScore = testScore.subset(beginMeasureIdx: 0, endMeasureIdx: 4)
+        saveImage(image: render.render(score: subScore), filenamed: "spring_first_4")
     }
 
 }

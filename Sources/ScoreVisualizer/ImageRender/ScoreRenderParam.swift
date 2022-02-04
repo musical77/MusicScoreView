@@ -21,4 +21,7 @@ public struct ScoreRenderParam {
     
     /// whether to draw a line between measures or not
     public var drawMeasureLine = true
+    
+    /// measure line width
+    public var measureLineWidth = 2.0
 }

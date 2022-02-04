@@ -30,6 +30,11 @@ public class ScoreImageRender {
             draw(context: context, musicPart: musicPart)
         }
         
+        // Draw Measure lines.
+        if param.drawMeasureLine {
+            drawMeasureLines(context: context, score: score)
+        }
+        
         // Save the context as a new UIImage
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -41,6 +46,21 @@ public class ScoreImageRender {
     public var param: ScoreRenderParam!
     
     /// privates
+    
+    /// draw measure lines
+    private func drawMeasureLines(context: CGContext, score: MusicScore) {
+        for musicPart in score.musicParts {
+            for measure in musicPart.measures {
+                let beginXPos = measure.beginBeat * param.noteWidthPerBeat - param.measureLineWidth / 2
+            
+                context.setLineWidth(param.measureLineWidth)
+                context.setStrokeColor(UIColor.gray.cgColor)
+                context.move(to: CGPoint(x: beginXPos, y: 0))
+                context.addLine(to: CGPoint(x: beginXPos, y: imageHeight))
+                context.strokePath()
+            }
+        }
+    }
     
     /// draw music part
     private func draw(context: CGContext, musicPart: MusicPart) {
