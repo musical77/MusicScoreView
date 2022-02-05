@@ -4,12 +4,24 @@
 
 import Foundation
 
+/// draw mode
+public enum NoteMode : Int {
+    case vertical = 1
+    case horizontal = 2
+}
+
 /// parameter for score rendering
 public struct ScoreRenderParam {
     
-    public static var `default` = {
+    public static var default_horizontal: ScoreRenderParam {
         return ScoreRenderParam()
-    }()
+    }
+    
+    public static var default_vertical: ScoreRenderParam {
+        var param = ScoreRenderParam()
+        param.noteMode = .vertical
+        return param
+    }
     
     public init() {}
     
@@ -24,4 +36,7 @@ public struct ScoreRenderParam {
     
     /// measure line width
     public var measureLineWidth = 2.0
+    
+    /// vertical or horizontal
+    public var noteMode: NoteMode = .horizontal
 }

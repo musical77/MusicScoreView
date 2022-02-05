@@ -20,22 +20,46 @@ class ScoreImageRenderTests: XCTestCase {
         }
     }
     
-    func testScoreRender1() {
+    func testScoreRenderVertical1() {
         let testScore = ScoreSamples.chopin92
-        let render = ScoreImageRender(param: .default)
-        let image = render.render(score: testScore)
-        saveImage(image: image, filenamed: "chopin")
+        let render = ScoreImageRender(param: .default_vertical, score: testScore)
+        let image = render.render(beginMeasureIdx: 0, endMeasureIdx: 100)
+        saveImage(image: image, filenamed: "chopin_vertical")
+        
+        let subImage = render.render(beginMeasureIdx: 0, endMeasureIdx: 4)
+        saveImage(image: subImage, filenamed: "chopin_vertical_first_4")
     }
     
-    func testScoreRender2() {
+    func testScoreRenderVertical2() {
         let testScore = ScoreSamples.spring1st
-        let render = ScoreImageRender(param: .default)
-        let image = render.render(score: testScore)
-        saveImage(image: image, filenamed: "spring")
+        let render = ScoreImageRender(param: .default_vertical, score: testScore)
+        let image = render.render(beginMeasureIdx: 0, endMeasureIdx: 100)
+        saveImage(image: image, filenamed: "spring_vertical")
         
-        let subScore = testScore.subset(beginMeasureIdx: 0, endMeasureIdx: 4)
-        saveImage(image: render.render(score: subScore), filenamed: "spring_first_4")
+        let subScore = render.render(beginMeasureIdx: 0, endMeasureIdx: 4)
+        saveImage(image: subScore, filenamed: "spring_vertical_first_4")
     }
+    
+    func testScoreRenderHorizontal1() {
+        let testScore = ScoreSamples.chopin92
+        var param = ScoreRenderParam()
+        param.noteMode = .horizontal
+        let render = ScoreImageRender(param: .default_horizontal, score: testScore)
+        let image = render.render(beginMeasureIdx: 0, endMeasureIdx: 100)
+        saveImage(image: image, filenamed: "chopin_horizontal")
+    }
+    
+    func testScoreRenderHorizontal2() {
+        let testScore = ScoreSamples.spring1st
+        let render = ScoreImageRender(param: .default_horizontal, score: testScore)
+        let image = render.render(beginMeasureIdx: 0, endMeasureIdx: 100)
+        saveImage(image: image, filenamed: "spring_horizontal")
+        
+        let subScore = render.render(beginMeasureIdx: 0, endMeasureIdx: 4)
+        saveImage(image: subScore, filenamed: "spring_horizontal_first_4")
+    }
+    
+    
 
 }
 

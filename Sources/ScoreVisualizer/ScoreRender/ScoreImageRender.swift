@@ -11,14 +11,29 @@ import MusicScore
 public class ScoreImageRender {
     
     /// init render
-    public init(param: ScoreRenderParam) {
+    public init(param: ScoreRenderParam, score: MusicScore) {
         self.param = param
+        self.score = score
+        self.hDrawer = HorizontalNoteDrawer(param: param)
+        self.vDrawer = VerticalNoteDrawer(param: param)
+    }
+    
+    /// return image of score [beginMeasureIdx, endMeasureIdx)
+    public func render(beginMeasureIdx: Int, endMeasureIdx: Int) -> UIImage {
+        if self.image == nil {
+            self.image = render()
+        }
+        
+        let beginX = beginXPos(idx: beginMeasureIdx)
+        let endX = beginXPos(idx: endMeasureIdx)
+        let rect = CGRect(x: beginX, y: 0, width: endX - beginX, height: imageHeight)
+        return self.image!.crop(rect: rect)
     }
     
     /// render images
     /// - parameter score score to be rendered
-    public func render(score: MusicScore) -> UIImage {
-        let size = CGSize(width: imageWidth(score: score), height: imageHeight)
+    private func render() -> UIImage {
+        let size = CGSize(width: imageWidth, height: imageHeight)
         
         // Create a context of the starting image size and set it as the current one
         UIGraphicsBeginImageContext(size)
@@ -44,7 +59,10 @@ public class ScoreImageRender {
         return image!
     }
     
-    public var param: ScoreRenderParam!
+    private var param: ScoreRenderParam!
+    private var score: MusicScore!
+    
+    private var image: UIImage? = nil
     
     /// privates
     
@@ -52,9 +70,9 @@ public class ScoreImageRender {
     private func drawMeasureLines(context: CGContext, score: MusicScore) {
         for musicPart in score.musicParts {
             for measure in musicPart.measures {
-                let beginXPos = measure.beginBeat * param.noteWidthPerBeat - param.measureLineWidth / 2
-            
+                let beginXPos = beginXPos(of: measure) - param.measureLineWidth / 2
                 context.setLineWidth(param.measureLineWidth)
+                
                 context.setStrokeColor(UIColor.gray.cgColor)
                 context.move(to: CGPoint(x: beginXPos, y: 0))
                 context.addLine(to: CGPoint(x: beginXPos, y: imageHeight))
@@ -63,51 +81,43 @@ public class ScoreImageRender {
         }
     }
     
-    /// draw music part
+    /// draw notes in this music part
     private func draw(context: CGContext, musicPart: MusicPart) {
-        let color = getColor(musicPart)
-        
         for note in musicPart.notes {
-            drawNote(context: context, note: note, color: color)
+            if param.noteMode == .vertical {
+                vDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument)
+            } else {
+                hDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument)
+            }
         }
     }
     
-    /// draw a single note
-    private func drawNote(context: CGContext, note: NoteInScore, color: CGColor) {
-        let xPos = note.beginBeat * param.noteWidthPerBeat
-        let yPos = imageHeight - CGFloat(note.pitch.rawValue) / HIGHEST_PITCH * imageHeight
-        let width = (note.endBeat - note.beginBeat) * param.noteWidthPerBeat
-        let height = param.noteHeight
-        
-        let rect = CGRect(x: xPos, y: yPos, width: width, height: height)
-        
-        context.setStrokeColor(color)
-        context.setFillColor(color)
-        context.setAlpha(0.8)
-        context.addRect(rect)
-        context.drawPath(using: .fill)
+    /// beginXPos
+    private func beginXPos(of measure: Measure) -> Double {
+        return measure.beginBeat * param.noteWidthPerBeat
+    }
+    private func beginXPos(idx: Int) -> Double {
+        if idx < score.musicParts[0].measures.count {
+            return beginXPos(of: score.musicParts[0].measures[idx])
+        } else {
+            return imageWidth
+        }
     }
         
-    private func imageWidth(score: MusicScore) -> CGFloat {
+    /// score image width
+    private var imageWidth: CGFloat {
         return score.duration * param.noteWidthPerBeat
     }
     
+    /// score image height
     private var imageHeight: CGFloat {
         return HIGHEST_PITCH * param.noteHeight
     }
     
-    private func getColor(_ musicPart: MusicPart) -> CGColor {
-        switch musicPart.meta.instrument {
-        case .piano:
-            return UIColor.green.cgColor
-        case.violin:
-            return UIColor.red.cgColor
-        default:
-            return UIColor.blue.cgColor
-        }
-    }
-    
     private let HIGHEST_PITCH = 128.0
+    
+    private let hDrawer: HorizontalNoteDrawer!
+    private let vDrawer: VerticalNoteDrawer!
 }
 
 
