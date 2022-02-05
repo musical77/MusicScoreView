@@ -19,7 +19,7 @@ class HorizontalNoteDrawer {
         let color = getColor(note: note, instrument: instrument).cgColor
         
         let xPos = note.beginBeat * param.noteWidthPerBeat
-        let yPos = imageHeight - CGFloat(note.pitch.rawValue) / HIGHEST_PITCH * imageHeight
+        let yPos = imageHeight - CGFloat(note.pitch.rawValue) / NoteInScore.HIGHEST_PITCH * imageHeight
         let width = (note.endBeat - note.beginBeat) * param.noteWidthPerBeat
         let height = param.noteHeight
         
@@ -43,5 +43,4 @@ class HorizontalNoteDrawer {
         }
     }
     
-    private let HIGHEST_PITCH = 128.0
 }

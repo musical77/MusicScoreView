@@ -41,8 +41,6 @@ class NoteColorMap {
                                      "#FF194AFF"].reversed()
    
     static func getColorByNoteKey(note: NoteInScore, instrument: InstrumentType) -> UIColor {
-        //        note.note.pitch.key
-        // #fc2847ff, #ffa343ff, #fdfc74ff, #71bc78ff, #0f4c81ff, #7442c8ff, #fb7efdff
         switch note.pitch.key.type {
         case .a:
             return UIColor(hex: "#fc2847ff")!

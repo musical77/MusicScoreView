@@ -20,19 +20,20 @@ public class ScoreImageRender {
     
     /// return image of score [beginMeasureIdx, endMeasureIdx)
     public func render(beginMeasureIdx: Int, endMeasureIdx: Int) -> UIImage {
-        if self.image == nil {
-            self.image = render()
-        }
-        
         let beginX = beginXPos(idx: beginMeasureIdx)
         let endX = beginXPos(idx: endMeasureIdx)
         let rect = CGRect(x: beginX, y: 0, width: endX - beginX, height: imageHeight)
-        return self.image!.crop(rect: rect)
+        return self.image.crop(rect: rect)
     }
     
-    /// render images
-    /// - parameter score score to be rendered
-    private func render() -> UIImage {
+    public func render() -> UIImage {
+        return self.image
+    }
+    
+    /// private
+    
+    /// render base images
+    private func drawBase() -> UIImage {
         let size = CGSize(width: imageWidth, height: imageHeight)
         
         // Create a context of the starting image size and set it as the current one
@@ -61,8 +62,9 @@ public class ScoreImageRender {
     
     private var param: ScoreRenderParam!
     private var score: MusicScore!
-    
-    private var image: UIImage? = nil
+    private lazy var image: UIImage = {
+        return drawBase()
+    }()
     
     /// privates
     
@@ -111,28 +113,12 @@ public class ScoreImageRender {
     
     /// score image height
     private var imageHeight: CGFloat {
-        return HIGHEST_PITCH * param.noteHeight
+        return NoteInScore.HIGHEST_PITCH * param.noteHeight
     }
-    
-    private let HIGHEST_PITCH = 128.0
-    
+        
     private let hDrawer: HorizontalNoteDrawer!
     private let vDrawer: VerticalNoteDrawer!
 }
 
 
 #endif
-
-//// Draw a red line
-//context.setLineWidth(2.0)
-//context.setStrokeColor(UIColor.red.cgColor)
-//context.move(to: CGPoint(x: 100, y: 100))
-//context.addLine(to: CGPoint(x: 200, y: 200))
-//context.strokePath()
-//
-//// Draw a transparent green Circle
-//context.setStrokeColor(UIColor.green.cgColor)
-//context.setAlpha(0.5)
-//context.setLineWidth(10.0)
-//context.addEllipse(in: CGRect(x: 100, y: 100, width: 100, height: 100))
-//context.drawPath(using: .stroke) // or .fillStroke if need filling

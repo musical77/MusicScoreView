@@ -41,3 +41,12 @@ let image = render.render(score: score)
 First 4 measures of Score - Beethoven Violin Sonata No.5 Op.24 Spring movement I Allegro.
 
 <img width="527" alt="截屏2022-02-04 下午5 17 02" src="https://user-images.githubusercontent.com/51254187/152504748-5a4156b0-5736-4cb0-b5cf-1e56d3922522.png">
+
+
+
+Design
+---
+
+### Vertical Arrangement of Notes
+
+https://www.behance.net/gallery/6529923/Sheet-Music-Visualization

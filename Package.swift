@@ -26,6 +26,10 @@ let package = Package(
             dependencies: ["MusicScore"]),
         .testTarget(
             name: "ScoreVisualizerTests",
-            dependencies: ["ScoreVisualizer"]),
+            dependencies: ["ScoreVisualizer"],
+            resources: [
+                .copy("Resource/bach_846.mid"),
+            ]
+        ),
     ]
 )

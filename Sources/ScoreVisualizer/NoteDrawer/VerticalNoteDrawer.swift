@@ -49,8 +49,7 @@ class VerticalNoteDrawer {
     
     ///  get Y position
     private func getYPos(imageHeight: CGFloat, of pitch : Pitch) -> CGFloat {
-        return imageHeight - CGFloat(pitch.rawValue) / HIGHEST_PITCH * imageHeight
+        return imageHeight - CGFloat(pitch.rawValue) / NoteInScore.HIGHEST_PITCH * imageHeight
     }
     
-    private let HIGHEST_PITCH = 128.0
 }
