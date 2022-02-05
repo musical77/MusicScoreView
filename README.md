@@ -56,3 +56,6 @@ Design
 ### Vertical Arrangement of Notes
 
 https://www.behance.net/gallery/6529923/Sheet-Music-Visualization
+
+
+### Horizontal Arrangement of Notes
