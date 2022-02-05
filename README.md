@@ -31,9 +31,15 @@ Usage
 ### Rendering a MusicScore 
 
 ``` swift
-let score = MusicScore(url: ...)!
-let render = ScoreImageRender(param: .default)
-let image = render.render(score: score)
+let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
+let score = MusicScore(url: url)!
+        
+let render = ScoreImageRender(param: .default_vertical, score: score)
+let image = render.render() // rendering the whole score
+saveImage(image: image, filenamed: "bach_vertical")
+        
+let image16 = render.render(beginMeasureIdx: 0, endMeasureIdx: 16) 
+saveImage(image: image16, filenamed: "bach_vertical_first_16")
 ```
 
 ### Sample Image Output 
