@@ -10,6 +10,12 @@ public enum NoteMode : Int {
     case horizontal = 2
 }
 
+public enum NoteColorMode : Int {
+    case pitch = 1
+    case key = 2
+    case instrument = 3
+}
+
 /// parameter for score rendering
 public struct ScoreRenderParam {
     
@@ -26,7 +32,7 @@ public struct ScoreRenderParam {
     public init() {}
     
     /// height for each note
-    public var noteHeight = 6.0
+    public var noteHeight = 10.0
     
     /// width for each beat
     public var noteWidthPerBeat = 32.0
@@ -39,4 +45,7 @@ public struct ScoreRenderParam {
     
     /// vertical or horizontal
     public var noteMode: NoteMode = .horizontal
+    
+    /// note color mode
+    public var noteColorMode: NoteColorMode = .pitch
 }

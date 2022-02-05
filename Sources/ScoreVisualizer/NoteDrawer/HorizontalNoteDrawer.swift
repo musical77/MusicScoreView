@@ -16,7 +16,7 @@ class HorizontalNoteDrawer {
     
     func draw(context: CGContext, note: NoteInScore, instrument: InstrumentType) {
         let imageHeight = CGFloat(context.height)
-        let color = NoteColorMap.getColor(instrument: instrument).cgColor
+        let color = getColor(note: note, instrument: instrument).cgColor
         
         let xPos = note.beginBeat * param.noteWidthPerBeat
         let yPos = imageHeight - CGFloat(note.pitch.rawValue) / HIGHEST_PITCH * imageHeight
@@ -30,6 +30,17 @@ class HorizontalNoteDrawer {
         context.setAlpha(0.8)
         context.addRect(rect)
         context.drawPath(using: .fill)
+    }
+    
+    private func getColor(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+        switch param.noteColorMode {
+        case .instrument:
+            return NoteColorMap.getColorByInstrument(note: note, instrument: instrument)
+        case .pitch:
+            return NoteColorMap.getColorByNotePitch(note: note, instrument: instrument)
+        case .key:
+            return NoteColorMap.getColorByNoteKey(note: note, instrument: instrument)
+        }
     }
     
     private let HIGHEST_PITCH = 128.0

@@ -4,10 +4,43 @@
 
 import Foundation
 import MusicScore
+import MusicSymbol
 import UIKit
 
 class NoteColorMap {
-    static func getColor(note: NoteInScore) -> UIColor {
+    
+    static let colorStr: [String] = ["#FF191CFF",
+                                     "#FF4419FF",
+                                     "#FF7219FF",
+                                     "#FFA019FF",
+                                     "#FFCE19FF",
+                                     "#FFFC19FF",
+                                     "#D4FF19FF",
+                                     "#A6FF19FF",
+                                     "#78FF19FF",
+                                     "#4AFF19FF",
+                                     "#1CFF19FF",
+                                     "#19FF44FF",
+                                     "#19FF72FF",
+                                     "#19FFA0FF",
+                                     "#19FFCEFF",
+                                     "#19FFFCFF",
+                                     "#19D4FFFF",
+                                     "#19A6FFFF",
+                                     "#1978FFFF",
+                                     "#194AFFFF", // C4
+                                     "#191CFFFF",
+                                     "#4419FFFF",
+                                     "#7219FFFF",
+                                     "#A019FFFF",
+                                     "#CE19FFFF",
+                                     "#FC19FFFF",
+                                     "#FF19D4FF",
+                                     "#FF19A6FF",
+                                     "#FF1978FF",
+                                     "#FF194AFF"].reversed()
+   
+    static func getColorByNoteKey(note: NoteInScore, instrument: InstrumentType) -> UIColor {
         //        note.note.pitch.key
         // #fc2847ff, #ffa343ff, #fdfc74ff, #71bc78ff, #0f4c81ff, #7442c8ff, #fb7efdff
         switch note.pitch.key.type {
@@ -28,7 +61,15 @@ class NoteColorMap {
         }
     }
     
-    static func getColor(instrument: InstrumentType) -> UIColor {
+    static func getColorByNotePitch(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+        let relativeToC4 = (note.pitch.rawValue - Pitch.C4.rawValue) / 2
+        var index = 19 - relativeToC4
+        index = max(0, index)
+        index = min(index, 29)
+        return UIColor(hex: colorStr[index])!
+    }
+    
+    static func getColorByInstrument(note: NoteInScore, instrument: InstrumentType) -> UIColor {
         switch instrument {
         case .piano:
             return UIColor.green

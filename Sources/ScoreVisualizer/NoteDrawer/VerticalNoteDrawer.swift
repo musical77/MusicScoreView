@@ -17,7 +17,7 @@ class VerticalNoteDrawer {
     
     func draw(context: CGContext, note: NoteInScore, instrument: InstrumentType) {
         let imageHeight = CGFloat(context.height)
-        let color = NoteColorMap.getColor(note: note).cgColor
+        let color = getColor(note: note, instrument: instrument).cgColor
         
         let xPos = note.beginBeat * param.noteWidthPerBeat
         let width = (note.endBeat - note.beginBeat) * param.noteWidthPerBeat
@@ -33,6 +33,18 @@ class VerticalNoteDrawer {
         context.setAlpha(0.9)
         context.addRect(rect)
         context.drawPath(using: .fill)
+    }
+    
+    /// get color
+    private func getColor(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+        switch param.noteColorMode {
+        case .instrument:
+            return NoteColorMap.getColorByInstrument(note: note, instrument: instrument)
+        case .pitch:
+            return NoteColorMap.getColorByNotePitch(note: note, instrument: instrument)
+        case .key:
+            return NoteColorMap.getColorByNoteKey(note: note, instrument: instrument)
+        }
     }
     
     ///  get Y position
