@@ -2,6 +2,7 @@
 //
 //  Created by lively77 on 2022/2/5.
 
+#if os(iOS)
 
 import Foundation
 import MusicScore
@@ -44,3 +45,6 @@ class HorizontalNoteDrawer {
     }
     
 }
+
+
+#endif
