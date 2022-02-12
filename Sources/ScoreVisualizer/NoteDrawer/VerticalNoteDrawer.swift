@@ -17,7 +17,7 @@ class VerticalNoteDrawer {
     
     var param: ScoreRenderParam
     
-    func draw(context: CGContext, note: NoteInScore, instrument: InstrumentType) {
+    func draw(context: CGContext, note: NoteInScore, instrument: InstrumentFamily) {
         let imageHeight = CGFloat(context.height)
         let color = getColor(note: note, instrument: instrument).cgColor
         
@@ -38,7 +38,7 @@ class VerticalNoteDrawer {
     }
     
     /// get color
-    private func getColor(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+    private func getColor(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
         switch param.noteColorMode {
         case .instrument:
             return NoteColorMap.getColorByInstrument(note: note, instrument: instrument)

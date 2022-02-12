@@ -6,6 +6,7 @@
 
 import Foundation
 import MusicScore
+import MusicSymbol
 import UIKit
 
 class HorizontalNoteDrawer {
@@ -15,7 +16,7 @@ class HorizontalNoteDrawer {
     
     var param: ScoreRenderParam
     
-    func draw(context: CGContext, note: NoteInScore, instrument: InstrumentType) {
+    func draw(context: CGContext, note: NoteInScore, instrument: InstrumentFamily) {
         let imageHeight = CGFloat(context.height)
         let color = getColor(note: note, instrument: instrument).cgColor
         
@@ -33,7 +34,7 @@ class HorizontalNoteDrawer {
         context.drawPath(using: .fill)
     }
     
-    private func getColor(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+    private func getColor(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
         switch param.noteColorMode {
         case .instrument:
             return NoteColorMap.getColorByInstrument(note: note, instrument: instrument)

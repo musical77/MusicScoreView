@@ -42,7 +42,7 @@ class NoteColorMap {
                                      "#FF1978FF",
                                      "#FF194AFF"].reversed()
    
-    static func getColorByNoteKey(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+    static func getColorByNoteKey(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
         switch note.pitch.key.type {
         case .a:
             return UIColor(hex: "#fc2847ff")!
@@ -61,7 +61,7 @@ class NoteColorMap {
         }
     }
     
-    static func getColorByNotePitch(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+    static func getColorByNotePitch(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
         let relativeToC4 = (note.pitch.rawValue - Pitch.C4.rawValue) / 2
         var index = 19 - relativeToC4
         index = max(0, index)
@@ -69,11 +69,11 @@ class NoteColorMap {
         return UIColor(hex: colorStr[index])!
     }
     
-    static func getColorByInstrument(note: NoteInScore, instrument: InstrumentType) -> UIColor {
+    static func getColorByInstrument(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
         switch instrument {
         case .piano:
             return UIColor.green
-        case.violin:
+        case .strings:
             return UIColor.red
         default:
             return UIColor.blue

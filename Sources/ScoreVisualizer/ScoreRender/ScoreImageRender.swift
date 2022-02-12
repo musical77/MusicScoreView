@@ -87,9 +87,9 @@ public class ScoreImageRender {
     private func draw(context: CGContext, musicPart: MusicPart) {
         for note in musicPart.notes {
             if param.noteMode == .vertical {
-                vDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument)
+                vDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument.family)
             } else {
-                hDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument)
+                hDrawer.draw(context: context, note: note, instrument: musicPart.meta.instrument.family)
             }
         }
     }
