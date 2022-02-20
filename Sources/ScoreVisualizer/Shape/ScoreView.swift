@@ -18,7 +18,12 @@ public struct ScoreView : View {
     private let score: MusicScore
     
     public var body : some View {
-        Rectangle().fill(.blue)
+        let notes = score.musicParts[0].measures[0].notes
+        ZStack {
+            ForEach(0..<notes.count) { idx in
+                NoteHorizontalShape(note: notes[idx], param: .default_horizontal)
+            }
+        }
     }
 }
 
