@@ -1,15 +1,43 @@
 //  NoteColorMap.swift
 //
-//  Created by lively77 on 2022/2/5.
-
-#if os(iOS)
+//  Created by lively77 on 2022/2/20.
 
 import Foundation
+import SwiftUI
 import MusicScore
 import MusicSymbol
-import UIKit
 
+/// Given a Note in music score, return it's color
 class NoteColorMap {
+    
+    /// get color by key of note, C, D, E, F, G, A, B
+    static func getColorByNoteKey(note: NoteInScore) -> Color {
+        switch note.pitch.key.type {
+        case .a:
+            return Color(hex: "#fc2847ff")!
+        case .b:
+            return Color(hex: "#ffa343ff")!
+        case .c:
+            return Color(hex: "#fdfc74ff")!
+        case .d:
+            return Color(hex: "#71bc78ff")!
+        case .e:
+            return Color(hex: "#0f4c81ff")!
+        case .f:
+            return Color(hex: "#7442c8ff")!
+        case .g:
+            return Color(hex: "#fb7efdff")!
+        }
+    }
+    
+    /// get color by pitch of this note
+    static func getColorByNotePitch(note: NoteInScore) -> Color {
+        let relativeToC4 = (note.pitch.rawValue - Pitch.C4.rawValue) / 2
+        var index = 19 - relativeToC4
+        index = max(0, index)
+        index = min(index, 29)
+        return Color(hex: colorStr[index])!
+    }
     
     static let colorStr: [String] = ["#FF191CFF",
                                      "#FF4419FF",
@@ -41,50 +69,14 @@ class NoteColorMap {
                                      "#FF19A6FF",
                                      "#FF1978FF",
                                      "#FF194AFF"].reversed()
-   
-    static func getColorByNoteKey(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
-        switch note.pitch.key.type {
-        case .a:
-            return UIColor(hex: "#fc2847ff")!
-        case .b:
-            return UIColor(hex: "#ffa343ff")!
-        case .c:
-            return UIColor(hex: "#fdfc74ff")!
-        case .d:
-            return UIColor(hex: "#71bc78ff")!
-        case .e:
-            return UIColor(hex: "#0f4c81ff")!
-        case .f:
-            return UIColor(hex: "#7442c8ff")!
-        case .g:
-            return UIColor(hex: "#fb7efdff")!
-        }
-    }
-    
-    static func getColorByNotePitch(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
-        let relativeToC4 = (note.pitch.rawValue - Pitch.C4.rawValue) / 2
-        var index = 19 - relativeToC4
-        index = max(0, index)
-        index = min(index, 29)
-        return UIColor(hex: colorStr[index])!
-    }
-    
-    static func getColorByInstrument(note: NoteInScore, instrument: InstrumentFamily) -> UIColor {
-        switch instrument {
-        case .piano:
-            return UIColor.green
-        case .strings:
-            return UIColor.red
-        default:
-            return UIColor.blue
-        }
-    }
 }
 
+
 /// UIColor
-extension UIColor {
-    public convenience init?(hex: String) {
-        let r, g, b, a: CGFloat
+/// Get color from hex string, e.g. 194AFFFF ,  fb7efdff
+extension Color {
+    public init?(hex: String) {
+        let r, g, b: CGFloat
         
         if hex.hasPrefix("#") {
             let start = hex.index(hex.startIndex, offsetBy: 1)
@@ -98,9 +90,9 @@ extension UIColor {
                     r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
                     g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
                     b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-                    a = CGFloat(hexNumber & 0x000000ff) / 255
+                    //                    a = CGFloat(hexNumber & 0x000000ff) / 255
                     
-                    self.init(red: r, green: g, blue: b, alpha: a)
+                    self.init(red: r, green: g, blue: b)
                     return
                 }
             }
@@ -109,6 +101,3 @@ extension UIColor {
         return nil
     }
 }
-
-
-#endif
