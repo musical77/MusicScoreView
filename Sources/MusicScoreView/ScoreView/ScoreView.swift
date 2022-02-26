@@ -26,6 +26,17 @@ public struct ScoreView : View {
             }
         }
     }
-  
 }
+
+/// not working yet.
+struct ScoreView_Previews: PreviewProvider {
+    
+    static let score = ScoreSamples.spring1st
+    
+    static var previews: some View {
+        return ScoreView(notes: score.musicParts[0].notes, beginBeat: 0, endBeat: 10)
+    }
+}
+
+
 

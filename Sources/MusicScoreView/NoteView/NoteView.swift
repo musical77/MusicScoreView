@@ -62,3 +62,4 @@ public struct NoteView: View {
     static let MAX_PITCH = 108.0
     static let PITCHES = MAX_PITCH - MIN_PITCH + 1
 }
+
