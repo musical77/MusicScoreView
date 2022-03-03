@@ -33,13 +33,9 @@ struct ContentView: View {
 ``` swift
 let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
 let score = MusicScore(url: url)!
-let scoreView = ScoreView(viewModel: ScoreViewModel(score: score, beginBeat: 0, endBeat: 16.0))
+let scoreView = ScoreView(viewModel: ScoreViewModel(score: score, beginBeat: 0, endBeat: 64.0))
 let image = scoreView.snapshot()
 ```
-
-First 4 measures of Score - Beethoven Violin Sonata No.5 Op.24 Spring movement I Allegro. (Horizontal Arrangement)
-
-<img width="527" alt="截屏2022-02-04 下午5 17 02" src="https://user-images.githubusercontent.com/51254187/152504748-5a4156b0-5736-4cb0-b5cf-1e56d3922522.png">
 
 First 16 measures of Score - Johann Sebastian Bach – Prelude in C Major (Vertical Arrangement)
 <img width="1403" alt="截屏2022-02-05 下午11 00 09" src="https://user-images.githubusercontent.com/51254187/152647234-db78d440-2cbf-43aa-886c-74d569513a0a.png">
