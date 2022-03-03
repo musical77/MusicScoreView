@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MidiParser",
+        "repositoryURL": "https://github.com/musical77/MidiParser.git",
+        "state": {
+          "branch": "master",
+          "revision": "22a0bbfa0636d1b5d38401254c54c760a7ab847c",
+          "version": null
+        }
+      },
+      {
+        "package": "MusicScore",
+        "repositoryURL": "https://github.com/musical77/MusicScore",
+        "state": {
+          "branch": "main",
+          "revision": "1e9feae7c5979eff7d8682fe9e2df71f8c46906b",
+          "version": null
+        }
+      },
+      {
+        "package": "MusicSymbol",
+        "repositoryURL": "https://github.com/musical77/MusicSymbol",
+        "state": {
+          "branch": "main",
+          "revision": "a7e5c928b52d6b4801cdb8a22993265e5eb220e2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

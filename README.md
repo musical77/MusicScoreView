@@ -1,28 +1,41 @@
-# ScoreVisualizer
+# MusicScoreView
 
-`ScoreVisualizer` supports visulize a `MusicScore`.
+`MusicScoreView` supports visulize a `MusicScore` in SwiftUI.
 
 Demo
 ----
 
-### Rendering a MusicScore 
+### MusicScoreView Demo
 
 ``` swift
-// pick a mid file as MusicScore input
-let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
-let score = MusicScore(url: url)!
-        
-// init a render with parameter
-let render = ScoreImageRender(param: .default_vertical, score: score)
+struct ContentView: View {
+    
+    @ObservedObject var vm = ScoreViewModel(score: ScoreSamples.spring1st)
+    @State var beatAt: MusicTimeStamp = 0.0
 
-// rendering the whole score
-let image = render.render()
-        
-// rendering the first 16 measures of the score
-let image16 = render.render(beginMeasureIdx: 0, endMeasureIdx: 16) 
+    var body: some View {
+        VStack {
+            ScoreView(viewModel: vm)
+        }.onReceive(timer) { t in
+            beatAt = beatAt + 0.015
+            vm.seek(beginBeat: beatAt, endBeat: beatAt + 16.0)
+        }
+    }
+    
+    let timer = Timer.publish(every: 0.015, on: .main, in: .common).autoconnect()
+}
 ```
 
-### Sample Rendered Image 
+### Demo Result 
+
+### Get UIImage Snapshot
+
+``` swift
+let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
+let score = MusicScore(url: url)!
+let scoreView = ScoreView(viewModel: ScoreViewModel(score: score, beginBeat: 0, endBeat: 16.0))
+let image = scoreView.snapshot()
+```
 
 First 4 measures of Score - Beethoven Violin Sonata No.5 Op.24 Spring movement I Allegro. (Horizontal Arrangement)
 
@@ -50,7 +63,7 @@ Install
 let package = Package(
   name: ...
   dependencies: [
-    .package(url: "https://github.com/musical77/ScoreVisualizer.git")
+    .package(url: "https://github.com/musical77/MusicScoreView.git")
   ],
   targets: ...
 )

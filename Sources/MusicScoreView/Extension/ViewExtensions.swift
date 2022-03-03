@@ -41,7 +41,3 @@ public extension View {
     }
 }
 
-/// View Extension
-public extension View {
-    
-}
