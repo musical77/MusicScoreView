@@ -9,12 +9,21 @@ import Foundation
 import MusicScore
 import MusicSymbol
 
+/// score view model
 public class ScoreViewModel : ObservableObject {
     
-    public init(score: MusicScore) {
+    /// notes for UI
+    @Published public var notes: [NoteInScore] = []
+    
+    /// begin beat of notes in score
+    @Published public var beginBeat: MusicTimeStamp = 0.0
+    /// end beat of notes in score
+    @Published public var endBeat: MusicTimeStamp = 16.0
+    
+    public init(score: MusicScore, beginBeat: MusicTimeStamp = 0.0, endBeat: MusicTimeStamp = 16.0) {
         self.score = score
         self.allnotes = self.score.musicParts.flatMap { $0.notes }
-        seek(beginBeat: 0, endBeat: 16)
+        seek(beginBeat: beginBeat, endBeat: endBeat)
     }
     
     public func seek(beginBeat: MusicTimeStamp, endBeat: MusicTimeStamp) {
@@ -25,10 +34,6 @@ public class ScoreViewModel : ObservableObject {
             $0.endBeat >= beginBeat && $0.endBeat < endBeat
         }
     }
-    
-    @Published var notes: [NoteInScore] = []
-    @Published var beginBeat: MusicTimeStamp = 0.0
-    @Published var endBeat: MusicTimeStamp = 16.0
     
     private let score: MusicScore
     private var allnotes: [NoteInScore] = []
