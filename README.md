@@ -1,9 +1,14 @@
 # MusicScoreView
 
-`MusicScoreView` supports visulize a `MusicScore` in SwiftUI.
+Visulize a `MusicScore` in SwiftUI.
+- Horizontal Screen Mode
+- Vertical Screen Mode (in dev)
+- Vertical MIDI Fall Mode (in dev)
 
-Demo
+Horizontal Screen Mode Demo
 ----
+
+Notes in Spring Sonata (Beethoven Violin Sonata No.5 Op.24 Spring movement I. Allegro)
 
 https://user-images.githubusercontent.com/51254187/156758942-6f7720f1-3a20-40ec-a76f-6ed879122f64.mov
 
