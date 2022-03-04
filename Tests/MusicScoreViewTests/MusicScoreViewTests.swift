@@ -4,7 +4,7 @@ import SwiftUI
 import MusicScore
 import MusicScoreView
 
-class testScoreVizTests: XCTestCase {
+class MusicScoreViewTests: XCTestCase {
 
     func testScoreViewSnapshot() {
         let score = ScoreSamples.spring1st
