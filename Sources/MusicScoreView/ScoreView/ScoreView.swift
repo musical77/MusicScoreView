@@ -19,11 +19,11 @@ public struct ScoreView : View {
         GeometryReader { geo in
             ZStack {
                 ForEach(viewModel.notes, id: \.id) { note in
-                    NoteView(note: note,
-                             beginBeat: viewModel.beginBeat,
-                             endBeat: viewModel.endBeat,
-                             screenWidth: geo.size.width,
-                             screenHeight: geo.size.height)
+                    HorizontalScreenNoteView(note: note,
+                                             beginBeat: viewModel.beginBeatToDraw,
+                                             endBeat: viewModel.endBeatToDraw,
+                                             screenWidth: geo.size.width,
+                                             screenHeight: geo.size.height)
                 }
             }
         }

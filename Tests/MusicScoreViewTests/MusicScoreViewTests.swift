@@ -8,7 +8,7 @@ class MusicScoreViewTests: XCTestCase {
 
     func testScoreViewSnapshot() {
         let score = ScoreSamples.spring1st
-        let vm = ScoreViewModel(score: score, beginBeat: 0, endBeat: 32)
+        let vm = ScoreViewModel(score: score, param: .default_horizontal_screen, beginBeat: 0, endBeat: 32)
         let view = ScoreView(viewModel: vm)
         let image = view.snapshot()
         
@@ -19,7 +19,8 @@ class MusicScoreViewTests: XCTestCase {
     func testScoreViewSnapshotFromMid() {
         let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
         let score = MusicScore(url: url)!
-        let scoreView = ScoreView(viewModel: ScoreViewModel(score: score, beginBeat: 0, endBeat: 16.0))
+        let scoreView = ScoreView(viewModel: ScoreViewModel(
+            score: score, param: .default_horizontal_screen, beginBeat: 0, endBeat: 16))
         let image = scoreView.snapshot()
         
         saveImage(image: image, filenamed: "bach_512")

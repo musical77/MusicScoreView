@@ -8,7 +8,7 @@ import SwiftUI
 import MusicScore
 import MusicSymbol
 
-public struct NoteView: View {
+public struct HorizontalScreenNoteView: View {
     public init(note: NoteInScore,
                 beginBeat: MusicTimeStamp, endBeat: MusicTimeStamp,
                 screenWidth: CGFloat, screenHeight: CGFloat) {
@@ -18,7 +18,7 @@ public struct NoteView: View {
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
         
-        self.noteHeight = screenHeight / NoteView.PITCHES
+        self.noteHeight = screenHeight / HorizontalScreenNoteView.PITCHES
         self.noteWidthPerBeat = screenWidth / (self.endBeat - self.beginBeat)
         self.cornerRadius = noteHeight / 3.0
     }

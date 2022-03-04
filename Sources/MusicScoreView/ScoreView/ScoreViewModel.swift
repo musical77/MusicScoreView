@@ -12,23 +12,30 @@ import MusicSymbol
 /// score view model
 public class ScoreViewModel : ObservableObject {
     
-    /// notes for UI
+    /// notes in score to draw
     @Published public var notes: [NoteInScore] = []
+
+    /// score drawing parameters
+    @Published public var param: ScoreRenderParam = .default_horizontal_screen
     
-    /// begin beat of notes in score
-    @Published public var beginBeat: MusicTimeStamp = 0.0
-    /// end beat of notes in score
-    @Published public var endBeat: MusicTimeStamp = 16.0
+    /// begin beat to draw
+    public var beginBeatToDraw: MusicTimeStamp = 0.0
     
-    public init(score: MusicScore, beginBeat: MusicTimeStamp = 0.0, endBeat: MusicTimeStamp = 16.0) {
+    /// end beat to draw
+    public var endBeatToDraw: MusicTimeStamp = 16.0
+    
+    public init(score: MusicScore, param: ScoreRenderParam,
+                beginBeat: MusicTimeStamp = 0.0, endBeat: MusicTimeStamp = 16.0) {
         self.score = score
+        self.param = param
         self.allnotes = self.score.musicParts.flatMap { $0.notes }
         seek(beginBeat: beginBeat, endBeat: endBeat)
     }
     
+    /// set the drawing interest region in [beginBeat, endBeat)
     public func seek(beginBeat: MusicTimeStamp, endBeat: MusicTimeStamp) {
-        self.beginBeat = beginBeat
-        self.endBeat = endBeat
+        self.beginBeatToDraw = beginBeat
+        self.endBeatToDraw = endBeat
         
         notes = allnotes.filter { $0.beginBeat >= beginBeat && $0.beginBeat < endBeat ||
             $0.endBeat >= beginBeat && $0.endBeat < endBeat
