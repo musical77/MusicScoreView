@@ -5,30 +5,35 @@
 Demo
 ----
 
-### MusicScoreView Demo
+https://user-images.githubusercontent.com/51254187/156758942-6f7720f1-3a20-40ec-a76f-6ed879122f64.mov
+
+### Demo Code
 
 ``` swift
-struct ContentView: View {
+struct ExampleView: View {
     
-    @ObservedObject var vm = ScoreViewModel(score: ScoreSamples.spring1st)
-    @State var beatAt: MusicTimeStamp = 0.0
+    /// replace it with a midi file url as you wish
+    static let midiURL = ScoreSamples.url_spring1st
+    
+    /// load midi to `MusicScore` then loaded into a `ScoreViewModel`
+    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!)
 
     var body: some View {
         VStack {
-            ScoreView(viewModel: vm)
+            ScoreView(viewModel: scoreVM)
         }.onReceive(timer) { t in
-            beatAt = beatAt + 0.015
-            vm.seek(beginBeat: beatAt, endBeat: beatAt + 16.0)
+            beginBeat = beginBeat + 0.015
+            scoreVM.seek(beginBeat: beginBeat, endBeat: beginBeat + 16.0)
         }
     }
     
+    /// change begin beat periodically
     let timer = Timer.publish(every: 0.015, on: .main, in: .common).autoconnect()
+    @State var beginBeat: MusicTimeStamp = 0.0
 }
 ```
 
-### Demo Result 
-
-### Get UIImage Snapshot
+### Get the Snapshot of a MusicScore (UIImage)
 
 ``` swift
 let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
@@ -43,6 +48,7 @@ First 16 measures of Score - Johann Sebastian Bach – Prelude in C Major (Verti
 
 First 16 measure of Score - Johann Sebastian Bach – Prelude in C Major (Horizontal Arrangement)
 <img width="1404" alt="截屏2022-02-05 下午10 59 56" src="https://user-images.githubusercontent.com/51254187/152647222-c25ec33a-b740-400d-b9f8-b6b1b7707e2c.png">
+
 
 Requirements
 ----
