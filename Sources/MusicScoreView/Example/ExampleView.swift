@@ -9,7 +9,7 @@ import SwiftUI
 import MusicScore
 import MusicSymbol
 
-struct ContentView: View {
+struct ExampleView: View {
     
     @ObservedObject var vm = ScoreViewModel(score: ScoreSamples.spring1st)
     
@@ -25,4 +25,11 @@ struct ContentView: View {
     }
     
     let timer = Timer.publish(every: 0.015, on: .main, in: .common).autoconnect()
+}
+
+
+struct Example_Previews: PreviewProvider {
+    static var previews: some View {
+        ExampleView()
+    }
 }
