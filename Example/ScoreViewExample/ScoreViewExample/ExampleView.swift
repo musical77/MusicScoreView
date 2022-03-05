@@ -16,7 +16,7 @@ struct ExampleView: View {
     static let midiURL = ScoreSamples.url_spring1st
     
     /// load midi to `MusicScore` then loaded into a `ScoreViewModel`
-    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!)
+    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!, param: .default_vertical_fall)
 
     var body: some View {
         VStack {

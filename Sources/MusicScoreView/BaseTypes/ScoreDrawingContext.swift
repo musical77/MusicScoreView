@@ -4,6 +4,7 @@
 
 import Foundation
 import MusicSymbol
+import CoreGraphics
 
 /// drawing context 
 public struct ScoreDrawingContext {
