@@ -16,14 +16,23 @@ struct ExampleView: View {
     static let midiURL = ScoreSamples.url_spring1st
     
     /// load midi to `MusicScore` then loaded into a `ScoreViewModel`
-    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!, param: .default_vertical_fall)
+    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!,
+                                                 param: .default_vertical_fall)
 
     var body: some View {
-        VStack {
+        HStack {
             ScoreView(viewModel: scoreVM)
+                        
+            Button(action: {
+                isPlaying.toggle()
+            }) {
+                Text(isPlaying ? "Pause" : "Play")
+            }
         }.onReceive(timer) { t in
-            beginBeat = beginBeat + 0.015
-            scoreVM.seek(beginBeat: beginBeat, endBeat: beginBeat + 16.0)
+            if isPlaying {
+                beginBeat = beginBeat + 0.015
+                scoreVM.seek(beginBeat: beginBeat, endBeat: beginBeat + 16.0)
+            }
         }
     }
     
@@ -31,6 +40,7 @@ struct ExampleView: View {
     let timer = Timer.publish(every: 0.015, on: .main, in: .common).autoconnect()
     
     @State var beginBeat: MusicTimeStamp = 0.0
+    @State var isPlaying: Bool = true
 }
 
 struct Example_Previews: PreviewProvider {
