@@ -5,14 +5,14 @@ Visulize a `MusicScore` in SwiftUI.
 - Vertical Screen Mode 
 - Vertical MIDI Fall Mode 
 
-Horizontal Screen Mode Demo
+Demo App
 ----
 
 Notes in Spring Sonata (Beethoven Violin Sonata No.5 Op.24 Spring movement I. Allegro)
 
 https://user-images.githubusercontent.com/51254187/156871337-a337dbb9-bb80-4380-bfe2-cc58a10caf27.mov
 
-### Demo Code
+### Quick Start
 
 ``` swift
 struct ExampleView: View {
@@ -54,6 +54,10 @@ First 16 measures of Score - Johann Sebastian Bach – Prelude in C Major (Verti
 
 First 16 measure of Score - Johann Sebastian Bach – Prelude in C Major (Horizontal Arrangement)
 <img width="1404" alt="截屏2022-02-05 下午10 59 56" src="https://user-images.githubusercontent.com/51254187/152647222-c25ec33a-b740-400d-b9f8-b6b1b7707e2c.png">
+
+
+First 16 measure of Score - Johann Sebastian Bach – Prelude in C Major (Vertical Fall)
+<img width="1920" alt="bach_846_vertical_fall_by_pitch" src="https://user-images.githubusercontent.com/51254187/156871406-66c8f643-1943-4e8d-970e-5e3df43d8692.png">
 
 
 Requirements
