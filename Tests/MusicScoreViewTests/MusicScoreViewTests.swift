@@ -49,7 +49,6 @@ class MusicScoreViewTests: XCTestCase {
                 var param = ScoreDrawingParam()
                 param.noteArrangeMode = arrangeMode
                 param.noteColorMode = noteColorMode
-                param.drawMeasureLine = true
                 
                 let scoreView = ScoreView(viewModel: ScoreViewModel(
                     score: score, param: param, beginBeat: 0, endBeat: 48.0))
@@ -60,7 +59,23 @@ class MusicScoreViewTests: XCTestCase {
         }
     }
     
-    
+    func testAllModes2() {
+        let score = ScoreSamples.spring1st
+        
+        for arrangeMode: NoteArrangeMode in [.vertical_screen, .horizontal_screen, .vertical_fall] {
+            for noteColorMode: NoteColorMode in [.by_pitch, .by_key, .by_instrument] {
+                var param = ScoreDrawingParam()
+                param.noteArrangeMode = arrangeMode
+                param.noteColorMode = noteColorMode
+                
+                let scoreView = ScoreView(viewModel: ScoreViewModel(
+                    score: score, param: param, beginBeat: 0, endBeat: 48.0))
+                    .frame(width: 1920, height: 1080)
+                let image = scoreView.snapshot(size: CGSize(width: 1920, height: 1080))
+                saveImage(image: image, filenamed: "spring_\(param.noteArrangeMode)_\(param.noteColorMode)")
+            }
+        }
+    }
     
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
