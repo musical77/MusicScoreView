@@ -5,8 +5,8 @@
 import Foundation
 import MusicSymbol
 
-/// parameter for score rendering
-public struct ScoreRenderParam {
+/// parameter for drawing score
+public struct ScoreDrawingParam {
     
     /// whether to draw a line between measures or not
     public var drawMeasureLine = true
@@ -36,20 +36,20 @@ public enum NoteColorMode : Int {
 
 
 /// default extensions
-extension ScoreRenderParam {
+extension ScoreDrawingParam {
     
-    public static var default_horizontal_screen: ScoreRenderParam {
-        return ScoreRenderParam()
+    public static var default_horizontal_screen: ScoreDrawingParam {
+        return ScoreDrawingParam()
     }
     
-    public static var default_vertical_screen: ScoreRenderParam {
-        var param = ScoreRenderParam()
+    public static var default_vertical_screen: ScoreDrawingParam {
+        var param = ScoreDrawingParam()
         param.noteArrangeMode = .vertical_screen
         return param
     }
     
-    public static var default_vertical_fall: ScoreRenderParam {
-        var param = ScoreRenderParam()
+    public static var default_vertical_fall: ScoreDrawingParam {
+        var param = ScoreDrawingParam()
         param.noteArrangeMode = .vertical_fall
         return param
     }

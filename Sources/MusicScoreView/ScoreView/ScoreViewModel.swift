@@ -16,7 +16,7 @@ public class ScoreViewModel : ObservableObject {
     @Published public var notes: [NoteInScore] = []
 
     /// score drawing parameters
-    @Published public var param: ScoreRenderParam = .default_horizontal_screen
+    @Published public var param: ScoreDrawingParam = .default_horizontal_screen
     
     /// begin beat to draw
     public var beginBeatToDraw: MusicTimeStamp = 0.0
@@ -24,7 +24,7 @@ public class ScoreViewModel : ObservableObject {
     /// end beat to draw
     public var endBeatToDraw: MusicTimeStamp = 16.0
     
-    public init(score: MusicScore, param: ScoreRenderParam,
+    public init(score: MusicScore, param: ScoreDrawingParam,
                 beginBeat: MusicTimeStamp = 0.0, endBeat: MusicTimeStamp = 16.0) {
         self.score = score
         self.param = param

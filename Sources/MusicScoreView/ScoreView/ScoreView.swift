@@ -18,12 +18,15 @@ public struct ScoreView : View {
     public var body : some View {
         GeometryReader { geo in
             ZStack {
+                let drawingContext = ScoreDrawingContext(beginBeatToDraw: viewModel.beginBeatToDraw,
+                                                         endBeatToDraw: viewModel.endBeatToDraw,
+                                                         screenWidth: geo.size.width,
+                                                         screenHeight: geo.size.height)
+                
                 ForEach(viewModel.notes, id: \.id) { note in
                     HorizontalScreenNoteView(note: note,
-                                             beginBeat: viewModel.beginBeatToDraw,
-                                             endBeat: viewModel.endBeatToDraw,
-                                             screenWidth: geo.size.width,
-                                             screenHeight: geo.size.height)
+                                             param: .default_horizontal_screen,
+                                             context: drawingContext)
                 }
             }
         }

@@ -10,17 +10,10 @@ import MusicSymbol
 
 public struct HorizontalScreenNoteView: View {
     public init(note: NoteInScore,
-                beginBeat: MusicTimeStamp, endBeat: MusicTimeStamp,
-                screenWidth: CGFloat, screenHeight: CGFloat) {
+                param: ScoreDrawingParam, context: ScoreDrawingContext) {
         self.note = note
-        self.beginBeat = beginBeat
-        self.endBeat = endBeat
-        self.screenWidth = screenWidth
-        self.screenHeight = screenHeight
-        
-        self.noteHeight = screenHeight / HorizontalScreenNoteView.PITCHES
-        self.noteWidthPerBeat = screenWidth / (self.endBeat - self.beginBeat)
-        self.cornerRadius = noteHeight / 3.0
+        self.drawingParam = param
+        self.drawingContext = context
     }
     
     public var body: some View {
@@ -41,22 +34,28 @@ public struct HorizontalScreenNoteView: View {
     }
     
     var positionX: CGFloat {
-        return (note.beginBeat - beginBeat) * noteWidthPerBeat
+        return (note.beginBeat - drawingContext.beginBeatToDraw) * noteWidthPerBeat
     }
     
     var positionY: CGFloat {
-        return screenHeight - CGFloat(note.pitch.rawValue) * noteHeight
+        return drawingContext.screenHeight - CGFloat(note.pitch.rawValue) * noteHeight
     }
     
-    let cornerRadius: CGFloat!
-    let noteWidthPerBeat: CGFloat!
-    let noteHeight: CGFloat!
+    var cornerRadius: CGFloat {
+        return noteHeight / 3.0
+    }
+    
+    var noteWidthPerBeat: CGFloat {
+        return drawingContext.screenWidth / CGFloat((drawingContext.endBeatToDraw - drawingContext.beginBeatToDraw))
+    }
+    
+    var noteHeight: CGFloat {
+        return drawingContext.screenHeight / HorizontalScreenNoteView.PITCHES
+    }
     
     let note: NoteInScore
-    let beginBeat: MusicTimeStamp
-    let endBeat: MusicTimeStamp
-    let screenWidth: CGFloat
-    let screenHeight: CGFloat
+    let drawingParam: ScoreDrawingParam
+    let drawingContext: ScoreDrawingContext
     
     static let MIN_PITCH = 12.0
     static let MAX_PITCH = 108.0
