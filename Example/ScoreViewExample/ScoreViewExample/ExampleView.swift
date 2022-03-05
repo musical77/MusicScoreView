@@ -36,8 +36,12 @@ struct ExampleView: View {
                 }) {
                     Text(isPlaying ? "Pause" : "Play")
                 }
+                Spacer()
                 Button(action: {scoreVM.param.noteArrangeMode = .horizontal_screen}) {
                     Text("Horizontal Screen")
+                }
+                Button(action: {scoreVM.param.noteArrangeMode = .vertical_screen}) {
+                    Text("Vertical Screen")
                 }
                 Button(action: {scoreVM.param.noteArrangeMode = .vertical_fall}) {
                     Text("Vertical Fall")
