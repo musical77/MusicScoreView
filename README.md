@@ -1,6 +1,6 @@
 # MusicScoreView
 
-Visulize a `MusicScore` in SwiftUI.
+Visulize a `MusicScore` or `MIDI Notes` in SwiftUI.
 - Horizontal Screen Mode
 - Vertical Screen Mode 
 - Vertical MIDI Fall Mode 
