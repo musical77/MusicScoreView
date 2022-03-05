@@ -17,8 +17,6 @@ public struct VerticalScreenNoteView: View {
     }
     
     public var body: some View {
-        print(note, positionX, positionY, noteWidth, noteHeight)
-        
         return RoundedRectangle(cornerRadius: cornerRadius)
             .frame(width: noteWidth, height: noteHeight)
             .foregroundColor(noteColor)
@@ -46,12 +44,14 @@ public struct VerticalScreenNoteView: View {
         return drawingContext.screenHeight / HorizontalScreenNoteView.PITCHES
     }
     
+    /// position
     var positionX: CGFloat {
         return (note.beginBeat - drawingContext.beginBeatToDraw) * noteWidthPerBeat
     }
     
     var positionY: CGFloat {
         let c4Y = drawingContext.screenHeight - CGFloat(Pitch.C4.rawValue) * noteHeightPerPitch
+            + VerticalScreenNoteView.MIN_PITCH * noteHeightPerPitch
         if note.pitch.rawValue > Pitch.C4.rawValue {
             return c4Y - noteHeight
         } else {

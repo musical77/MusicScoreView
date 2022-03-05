@@ -24,6 +24,7 @@ class NoteColorMap {
     
     /// get color by key of note, C, D, E, F, G, A, B
     private static func getColorByNoteKey(note: NoteInScore) -> Color {
+        
         switch note.pitch.key.type {
         case .a:
             return Color(hex: "#fc2847ff")!

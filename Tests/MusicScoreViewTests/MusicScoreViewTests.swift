@@ -26,6 +26,20 @@ class MusicScoreViewTests: XCTestCase {
         saveImage(image: image, filenamed: "bach_512")
     }
     
+    func testNoteColorMode() {
+        let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
+        let score = MusicScore(url: url)!
+        
+        var param = ScoreDrawingParam()
+        param.noteColorMode = .by_key
+        param.noteArrangeMode = .horizontal_screen
+        let scoreView = ScoreView(viewModel: ScoreViewModel(
+            score: score, param: param, beginBeat: 0, endBeat: 16))
+        let image = scoreView.snapshot(size: CGSize(width: 512, height: 512))
+        
+        saveImage(image: image, filenamed: "bach_846_by_key")
+    }
+    
     func testAllModes() {
         let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
         let score = MusicScore(url: url)!
