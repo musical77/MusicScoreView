@@ -16,20 +16,25 @@ public class ScoreViewModel : ObservableObject {
     @Published public var notes: [NoteInScore] = []
 
     /// score drawing parameters
-    @Published public var param: ScoreDrawingParam = .default_horizontal_screen
+    @Published public var param: ScoreDrawingParam
     
     /// begin beat to draw
     public var beginBeatToDraw: MusicTimeStamp = 0.0
     
-    /// end beat to draw
-    public var endBeatToDraw: MusicTimeStamp = 16.0
+    /// end beat to draw, by default draw the first 48 beats of the score
+    /// note: when (endBeat - beginBeat) is too large, the final output view could be empty, because there is no space for each note to draw.
+    public var endBeatToDraw: MusicTimeStamp = 48
     
-    public init(score: MusicScore, param: ScoreDrawingParam,
-                beginBeat: MusicTimeStamp = 0.0, endBeat: MusicTimeStamp = 16.0) {
+    public init(score: MusicScore,
+                param: ScoreDrawingParam,
+                beginBeat: MusicTimeStamp = 0.0,
+                endBeat: MusicTimeStamp = 48.0) {
         self.score = score
         self.param = param
         self.allnotes = self.score.musicParts.flatMap { $0.notes }
-        seek(beginBeat: beginBeat, endBeat: endBeat)
+        self.beginBeatToDraw = beginBeat
+        self.endBeatToDraw = endBeat
+        seek(beginBeat: beginBeatToDraw, endBeat: endBeatToDraw)
     }
     
     /// set the drawing interest region in [beginBeat, endBeat)

@@ -35,8 +35,7 @@ public extension View {
     }
     
     /// take screentshot full of this view
-    /// default size 512, 512
-    func snapshot(size: CGSize = CGSize(width: 512, height: 512)) -> UIImage {
+    func snapshot(size: CGSize) -> UIImage {
         return takeScreenshot(origin: CGPoint(x: 0, y: 0), size: size)
     }
 }

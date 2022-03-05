@@ -24,9 +24,18 @@ public struct ScoreView : View {
                                                          screenHeight: geo.size.height)
                 
                 ForEach(viewModel.notes, id: \.id) { note in
-                    HorizontalScreenNoteView(note: note,
-                                             param: .default_horizontal_screen,
-                                             context: drawingContext)
+                    
+                    if viewModel.param.noteArrangeMode == .horizontal_screen {
+                        HorizontalScreenNoteView(note: note,
+                                                 param: .default_horizontal_screen,
+                                                 context: drawingContext)
+                    }
+                    
+                    if viewModel.param.noteArrangeMode == .vertical_screen {
+                        VerticalScreenNoteView(note: note,
+                                               param: .default_vertical_screen,
+                                               context: drawingContext)
+                    }
                 }
             }
         }

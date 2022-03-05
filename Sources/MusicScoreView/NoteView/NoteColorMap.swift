@@ -10,19 +10,20 @@ import MusicSymbol
 /// Given a Note in music score, return it's color
 class NoteColorMap {
     
+    /// get color
     static func getColor(note: NoteInScore, mode: NoteColorMode) -> Color {
         switch mode {
         case .by_key:
             return getColorByNoteKey(note: note)
         case .by_pitch:
             return getColorByNotePitch(note: note)
-        default:
-            return getColorByNotePitch(note: note)
+        case .by_instrument:
+            return getColorByInstrument(note: note)
         }
     }
     
     /// get color by key of note, C, D, E, F, G, A, B
-    static func getColorByNoteKey(note: NoteInScore) -> Color {
+    private static func getColorByNoteKey(note: NoteInScore) -> Color {
         switch note.pitch.key.type {
         case .a:
             return Color(hex: "#fc2847ff")!
@@ -42,7 +43,7 @@ class NoteColorMap {
     }
     
     /// get color by pitch of this note
-    static func getColorByNotePitch(note: NoteInScore) -> Color {
+    private static func getColorByNotePitch(note: NoteInScore) -> Color {
         let relativeToC4 = (note.pitch.rawValue - Pitch.C4.rawValue) / 2
         var index = 19 - relativeToC4
         index = max(0, index)
@@ -50,7 +51,13 @@ class NoteColorMap {
         return Color(hex: colorStr[index])!
     }
     
-    static let colorStr: [String] = ["#FF191CFF",
+    /// get color by instrument
+    /// TODO:
+    private static func getColorByInstrument(note: NoteInScore) -> Color {
+        return Color.green
+    }
+    
+    private static let colorStr: [String] = ["#FF191CFF",
                                      "#FF4419FF",
                                      "#FF7219FF",
                                      "#FFA019FF",

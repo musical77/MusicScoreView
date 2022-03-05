@@ -1,23 +1,25 @@
-//  NoteView.swift
+//  VerticalScreenNoteView.swift
 //
-//  Created by lively77 on 2022/2/20.
-//
+//  Created by lively77 on 2022/3/5.
 
 import Foundation
 import SwiftUI
 import MusicScore
 import MusicSymbol
 
-public struct HorizontalScreenNoteView: View {
+public struct VerticalScreenNoteView: View {
     public init(note: NoteInScore,
-                param: ScoreDrawingParam, context: ScoreDrawingContext) {
+                param: ScoreDrawingParam,
+                context: ScoreDrawingContext) {
         self.note = note
         self.drawingParam = param
         self.drawingContext = context
     }
     
     public var body: some View {
-        RoundedRectangle(cornerRadius: cornerRadius)
+        print(note, positionX, positionY, noteWidth, noteHeight)
+        
+        return RoundedRectangle(cornerRadius: cornerRadius)
             .frame(width: noteWidth, height: noteHeight)
             .foregroundColor(noteColor)
             .position(x: positionX + noteWidth / 2, y: positionY + noteHeight / 2)
@@ -25,16 +27,19 @@ public struct HorizontalScreenNoteView: View {
     
     // begin private
     
+    /// note width is calculated by duration of this notes
     var noteWidth: CGFloat {
         return note.beats * noteWidthPerBeat
     }
     
-    var noteHeight: CGFloat {
-        return 1 * noteHeightPerPitch
-    }
-    
     var noteWidthPerBeat: CGFloat {
         return drawingContext.screenWidth / CGFloat((drawingContext.endBeatToDraw - drawingContext.beginBeatToDraw))
+    }
+    
+    /// note height is calculated by the pitch distance to C4
+    var noteHeight: CGFloat {
+        let pitchDistToC4 = abs(CGFloat(note.pitch.rawValue - Pitch.C4.rawValue))
+        return pitchDistToC4 * noteHeightPerPitch
     }
     
     var noteHeightPerPitch: CGFloat {
@@ -46,7 +51,12 @@ public struct HorizontalScreenNoteView: View {
     }
     
     var positionY: CGFloat {
-        return drawingContext.screenHeight - CGFloat(note.pitch.rawValue) * noteHeight
+        let c4Y = drawingContext.screenHeight - CGFloat(Pitch.C4.rawValue) * noteHeightPerPitch
+        if note.pitch.rawValue > Pitch.C4.rawValue {
+            return c4Y - noteHeight
+        } else {
+            return c4Y
+        }
     }
     
     var noteColor: Color {
@@ -54,7 +64,7 @@ public struct HorizontalScreenNoteView: View {
     }
     
     var cornerRadius: CGFloat {
-        return noteHeight / 3.0
+        return noteHeightPerPitch / 3.0
     }
     
     let note: NoteInScore
