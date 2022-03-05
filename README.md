@@ -2,15 +2,15 @@
 
 Visulize a `MusicScore` in SwiftUI.
 - Horizontal Screen Mode
-- Vertical Screen Mode (in dev)
-- Vertical MIDI Fall Mode (in dev)
+- Vertical Screen Mode 
+- Vertical MIDI Fall Mode 
 
 Horizontal Screen Mode Demo
 ----
 
 Notes in Spring Sonata (Beethoven Violin Sonata No.5 Op.24 Spring movement I. Allegro)
 
-https://user-images.githubusercontent.com/51254187/156758942-6f7720f1-3a20-40ec-a76f-6ed879122f64.mov
+https://user-images.githubusercontent.com/51254187/156871337-a337dbb9-bb80-4380-bfe2-cc58a10caf27.mov
 
 ### Demo Code
 
@@ -21,7 +21,8 @@ struct ExampleView: View {
     static let midiURL = ScoreSamples.url_spring1st
     
     /// load midi to `MusicScore` then loaded into a `ScoreViewModel`
-    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!)
+    @ObservedObject var scoreVM = ScoreViewModel(score: MusicScore(url: midiURL)!,
+                                                 param: .default_vertical_fall)
 
     var body: some View {
         VStack {
