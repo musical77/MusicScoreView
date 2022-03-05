@@ -21,8 +21,14 @@ struct ExampleView: View {
 
     var body: some View {
         HStack {
-            ScoreView(viewModel: scoreVM)
-                        
+            VStack {
+                ScoreView(viewModel: scoreVM)
+                Rectangle().foregroundColor(.red).frame(height: 1)
+                Spacer()
+            }
+            Rectangle().foregroundColor(.red).frame(width: 1)
+            
+            Spacer()
             Button(action: {
                 isPlaying.toggle()
             }) {

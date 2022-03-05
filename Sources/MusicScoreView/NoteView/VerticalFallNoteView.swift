@@ -36,7 +36,7 @@ public struct VerticalFallNoteView: View {
     
     /// note height is calculated by the note duration
     var noteHeight: CGFloat {
-        return note.duration * noteHeightPerBeat
+        return min(note.endBeat - drawingContext.beginBeatToDraw, note.duration) * noteHeightPerBeat
     }
     
     var noteHeightPerBeat: CGFloat {
