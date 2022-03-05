@@ -9,6 +9,7 @@ import MusicSymbol
 public struct ScoreDrawingParam {
     
     /// whether to draw a line between measures or not
+    /// TODO: implement
     public var drawMeasureLine = false
     
     /// vertical or horizontal
@@ -39,7 +40,9 @@ public enum NoteColorMode : Int, CaseIterable {
 extension ScoreDrawingParam {
     
     public static var default_horizontal_screen: ScoreDrawingParam {
-        return ScoreDrawingParam()
+        var param = ScoreDrawingParam()
+        param.noteArrangeMode = .horizontal_screen
+        return param
     }
     
     public static var default_vertical_screen: ScoreDrawingParam {

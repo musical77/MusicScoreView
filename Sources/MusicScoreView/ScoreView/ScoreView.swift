@@ -36,6 +36,12 @@ public struct ScoreView : View {
                                                param: viewModel.param,
                                                context: drawingContext)
                     }
+                    
+                    if viewModel.param.noteArrangeMode == .vertical_fall {
+                        VerticalFallNoteView(note: note,
+                                             param: viewModel.param,
+                                             context: drawingContext)
+                    }
                 }
             }
         }

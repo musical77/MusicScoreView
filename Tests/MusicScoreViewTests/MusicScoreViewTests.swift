@@ -44,8 +44,8 @@ class MusicScoreViewTests: XCTestCase {
         let url = Bundle.module.url(forResource: "bach_846", withExtension: "mid")!
         let score = MusicScore(url: url)!
         
-        for arrangeMode: NoteArrangeMode in [.vertical_screen, .horizontal_screen] {
-            for noteColorMode: NoteColorMode in [.by_pitch, .by_key] {
+        for arrangeMode: NoteArrangeMode in [.vertical_screen, .horizontal_screen, .vertical_fall] {
+            for noteColorMode: NoteColorMode in [.by_pitch, .by_key, .by_instrument] {
                 var param = ScoreDrawingParam()
                 param.noteArrangeMode = arrangeMode
                 param.noteColorMode = noteColorMode
