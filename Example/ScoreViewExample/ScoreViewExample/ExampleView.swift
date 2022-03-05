@@ -29,10 +29,19 @@ struct ExampleView: View {
             Rectangle().foregroundColor(.red).frame(width: 1)
             
             Spacer()
-            Button(action: {
-                isPlaying.toggle()
-            }) {
-                Text(isPlaying ? "Pause" : "Play")
+            
+            VStack {
+                Button(action: {
+                    isPlaying.toggle()
+                }) {
+                    Text(isPlaying ? "Pause" : "Play")
+                }
+                Button(action: {scoreVM.param.noteArrangeMode = .horizontal_screen}) {
+                    Text("Horizontal Screen")
+                }
+                Button(action: {scoreVM.param.noteArrangeMode = .vertical_fall}) {
+                    Text("Vertical Fall")
+                }
             }
         }.onReceive(timer) { t in
             if isPlaying {

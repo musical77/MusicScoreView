@@ -43,7 +43,7 @@ public struct ScoreView : View {
                                              context: drawingContext)
                     }
                 }
-            }
+            }.clipped()
         }
     }
 }
