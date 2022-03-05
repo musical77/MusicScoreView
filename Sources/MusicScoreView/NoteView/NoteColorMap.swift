@@ -10,6 +10,17 @@ import MusicSymbol
 /// Given a Note in music score, return it's color
 class NoteColorMap {
     
+    static func getColor(note: NoteInScore, mode: NoteColorMode) -> Color {
+        switch mode {
+        case .by_key:
+            return getColorByNoteKey(note: note)
+        case .by_pitch:
+            return getColorByNotePitch(note: note)
+        default:
+            return getColorByNotePitch(note: note)
+        }
+    }
+    
     /// get color by key of note, C, D, E, F, G, A, B
     static func getColorByNoteKey(note: NoteInScore) -> Color {
         switch note.pitch.key.type {

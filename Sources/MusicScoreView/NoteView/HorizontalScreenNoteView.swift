@@ -30,7 +30,7 @@ public struct HorizontalScreenNoteView: View {
     }
     
     var noteColor: Color {
-        return NoteColorMap.getColorByNotePitch(note: note)
+        return NoteColorMap.getColor(note: note, mode: drawingParam.noteColorMode)
     }
     
     var positionX: CGFloat {
